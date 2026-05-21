@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import engine, Base
 from app.core.config import get_settings
+from app.api.routes import players, matches, analysis
 
 settings = get_settings()
 
-# Create all tables on startup
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -22,12 +22,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(players.router)
+app.include_router(matches.router)
+app.include_router(analysis.router)
+
 @app.get("/")
 def root():
     return {
         "product": "CricketIQ X",
         "edition": "CSK Analyst Edition",
-        "status": "running",
+        "status":  "running",
         "version": "1.0.0"
     }
 

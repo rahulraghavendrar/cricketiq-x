@@ -1,11 +1,14 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
+import ReportPage from './pages/ReportPage'
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-csk-dark">
-      <HomePage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/"       element={<HomePage />} />
+        <Route path="/report" element={<ReportPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App
